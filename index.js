@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config();
 const mongoose = require('mongoose');
 const Product = require('./models/product.model.js');
 const productRoute = require('./routes/product.route.js');
@@ -16,8 +17,8 @@ app.get('/', (req, res) => {
     res.send('Hello from Node API server Updated')
 });
 
-
-mongoose.connect("mongodb+srv://CRUD_API:QMyv4Qq2RZBiMl92@backenddb.nwtt6.mongodb.net/CRUD_API?retryWrites=true&w=majority&appName=BackendDb")
+const dbURI = process.env.DB_URI;
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
       console.log('Connected!');
       app.listen(3000, () => {
